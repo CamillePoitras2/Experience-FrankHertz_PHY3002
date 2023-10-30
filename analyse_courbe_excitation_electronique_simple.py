@@ -199,7 +199,8 @@ for i, peak in enumerate([peak1, peak2, peak3, peak4]):
       plt.plot(valeurs_avec_bonnes_unites[peaks_idx_start[i]:peaks_idx_end[i], 0], 
                gaus(valeurs_avec_bonnes_unites[peaks_idx_start[i]:peaks_idx_end[i], 0],
                     peak[0][0], peak[0][1], peak[0][2]),
-            label=f"Peak {i+1}", color='red', linewidth=2, alpha=0.9)
+               label=f"$y = ({rounded_values[0]})\;\exp\{{(x-({rounded_values[1]}))^2\; /\; 2\cdot({rounded_values[2]})^2\}}$",
+               color='red', linewidth=2, alpha=0.9)
 
 plt.xlabel("Tension d'accélération [V]")
 plt.ylabel("Courant du pico [nA]")
