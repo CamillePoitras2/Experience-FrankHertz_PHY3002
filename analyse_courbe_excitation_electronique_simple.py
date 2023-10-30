@@ -124,7 +124,8 @@ plt.show()
 #     Faire une régression gaussienne sur chacun des pics et calculer le potentiel de contact
 # -------------------------------------------------------------------------------------------------
 # Paramètres qui ont été optimisés manuellement pour les ajustements gaussiens de chaque
-# expérience | APPORTER DES MODIFICATIONS POUR OPTIMISER LE PROCESSUS DAVANTAGE!!
+# expérience | APPORTER DES MODIFICATIONS POUR PAR RÉPÉTER LE CODE QUATRE FOIS!! + dictionnaire pour
+# les valeurs qui ont été optimisées manullement
 
 # Mettres les paramètres des fits gaussiens pour chaque pic [Amplitude, Moyenne, STD]
 peak1_idx_start, peak1_idx_end = liste_des_indexes_des_pics[0] - 50, liste_des_indexes_des_pics[0] + 50
