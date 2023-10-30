@@ -196,11 +196,12 @@ peaks_idx_start = [peak1_idx_start, peak2_idx_start, peak3_idx_start, peak4_idx_
 peaks_idx_end = [peak1_idx_end, peak2_idx_end, peak3_idx_end, peak4_idx_end]
 
 for i, peak in enumerate([peak1, peak2, peak3, peak4]):
-      plt.plot(valeurs_avec_bonnes_unites[peaks_idx_start[i]:peaks_idx_end[i], 0], 
-               gaus(valeurs_avec_bonnes_unites[peaks_idx_start[i]:peaks_idx_end[i], 0],
-                    peak[0][0], peak[0][1], peak[0][2]),
-               label=f"$y = ({rounded_values[0]})\;\exp\{{(x-({rounded_values[1]}))^2\; /\; 2\cdot({rounded_values[2]})^2\}}$",
-               color='red', linewidth=2, alpha=0.9)
+    rounded_values = rounding_peaks(peak)
+    plt.plot(valeurs_avec_bonnes_unites[peaks_idx_start[i]:peaks_idx_end[i], 0], 
+             gaus(valeurs_avec_bonnes_unites[peaks_idx_start[i]:peaks_idx_end[i], 0],
+                  peak[0][0], peak[0][1], peak[0][2]),
+             label=f"$y = ({rounded_values[0]})\;\exp\{{(x-({rounded_values[1]}))^2\; /\; 2\cdot({rounded_values[2]})^2\}}$",
+             color='red', linewidth=2, alpha=0.9)
 
 plt.xlabel("Tension d'accélération [V]")
 plt.ylabel("Courant du pico [nA]")
@@ -208,5 +209,6 @@ plt.legend(fontsize=14)
 plt.tick_params(axis='both', which='both', direction='in')
 plt.minorticks_on()
 
-# SAUVEGARDER LA FIGURE DANS LE FICHIER 'FIGURES'
+plt.savefig(os.path.join('figures', csv_file_names[num_exp] + "_AnalyseSimple.png"), bbox_inches="tight")
+
 plt.show()
