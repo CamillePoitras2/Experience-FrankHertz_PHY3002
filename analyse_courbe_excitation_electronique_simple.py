@@ -158,16 +158,20 @@ def rounding_peaks(peaks):
             all_values.append(round_any(peaks[0][i], uncertainty=peaks[1][i]))
       return all_values
 
-print("Pic 1:", f"Moyenne: {rounding_peaks(peak1)[1]}",
+print("Pic 1:",
+      f"Moyenne: {rounding_peaks(peak1)[1]}",
       f"STD: {rounding_peaks(peak1)[2]}",
       f"Amplitude: {rounding_peaks(peak1)[0]}")
-print("Pic 2:", f"Moyenne: {rounding_peaks(peak2)[1]}",
+print("Pic 2:",
+      f"Moyenne: {rounding_peaks(peak2)[1]}",
       f"STD: {rounding_peaks(peak2)[2]}",
       f"Amplitude: {rounding_peaks(peak2)[0]}")
-print("Pic 3:", f"Moyenne: {rounding_peaks(peak3)[1]}",
+print("Pic 3:",
+      f"Moyenne: {rounding_peaks(peak3)[1]}",
       f"STD: {rounding_peaks(peak3)[2]}",
       f"Amplitude: {rounding_peaks(peak3)[0]}")
-print("Pic 4:", f"Moyenne: {rounding_peaks(peak4)[1]}",
+print("Pic 4:",
+      f"Moyenne: {rounding_peaks(peak4)[1]}",
       f"STD: {rounding_peaks(peak4)[2]}",
       f"Amplitude: {rounding_peaks(peak4)[0]}")
 
@@ -193,8 +197,8 @@ peaks_idx_end = [peak1_idx_end, peak2_idx_end, peak3_idx_end, peak4_idx_end]
 
 for i, peak in enumerate([peak1, peak2, peak3, peak4]):
       plt.plot(valeurs_avec_bonnes_unites[peaks_idx_start[i]:peaks_idx_end[i], 0], 
-            gaus(valeurs_avec_bonnes_unites[peaks_idx_start[i]:peaks_idx_end[i], 0], 
-                  peak[0][0], peak[0][1], peak[0][2]),
+               gaus(valeurs_avec_bonnes_unites[peaks_idx_start[i]:peaks_idx_end[i], 0],
+                    peak[0][0], peak[0][1], peak[0][2]),
             label=f"Peak {i+1}", color='red', linewidth=2, alpha=0.9)
 
 plt.xlabel("Tension d'accélération [V]")
@@ -203,6 +207,5 @@ plt.legend(fontsize=14)
 plt.tick_params(axis='both', which='both', direction='in')
 plt.minorticks_on()
 
-#plt.savefig(f'C:\\Users\\Utilisateur\\Documents\\Baccalauréat physique\\Session A23\\Physique expérimentale IV (PHY-3002)\\FrankHertz_Lab4\\{exps[num_exp]}_profondeur.png')
-
+# SAUVEGARDER LA FIGURE DANS LE FICHIER 'FIGURES'
 plt.show()
