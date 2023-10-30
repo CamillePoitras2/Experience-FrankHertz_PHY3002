@@ -27,7 +27,7 @@ params_peak_detection = {'zero_threshold': [0.05, 0.05, 0.03, 0.04, 0.03, 0.03],
 # Sélectionner une expérience spécifique à analyser parmi celles énumérées
 # ci-dessus (0 à 5)
 num_exp = 0
-csv_file_path = os.path.join("data", "excel", csv_file_names[num_exp])
+csv_file_path = os.path.join("data", csv_file_names[num_exp])
 
 # Importer les données et convertir en array
 valeurs_en_array = lire_csv_a_3_colonnes(csv_file_path, 9)
