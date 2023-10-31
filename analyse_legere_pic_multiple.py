@@ -15,7 +15,7 @@ matplotlib.rcParams.update({'font.size': 18})
 #                        Importer les données et leurs paramètres respectifs 
 # -------------------------------------------------------------------------------------------------
 # Spécifier le nom du fichier .csv
-csv_file_name = ['Montage_B_step6.4']
+csv_file_name = 'Montage_B_step6.4'
 csv_file_path = os.path.join("data", csv_file_name)
 valeurs_en_array = lire_csv_a_3_colonnes(csv_file_path, 9)
 
@@ -24,7 +24,7 @@ valeurs_en_array = lire_csv_a_3_colonnes(csv_file_path, 9)
 # -------------------------------------------------------------------------------------------------
 # Retrait des valeurs à l'extérieur 
 valeurs_cropped_debutant_par_t0 = crop_pour_conserver_que_la_partie_avec_rampe(valeurs_en_array,
-                                                                               2, 0.05, 0.1)
+                                                                                2, 0.04, 0.1)
 # Réétablir les données tronquées pour débuter à t_0=0
 valeurs_cropped_debutant_par_t0[:, 0] -= np.min(valeurs_cropped_debutant_par_t0[:, 0])
 
@@ -33,7 +33,7 @@ valeurs_cropped_debutant_par_t0[:, 0] -= np.min(valeurs_cropped_debutant_par_t0[
 # -------------------------------------------------------------------------------------------------
 # Calculer la pente de la tension du générateur de rampe et son incertitude.
 facteur_valeur, facteur_incertitude = calculer_facteur_conversion_temps_en_potentiel_avec_mesure_rampe(valeurs_cropped_debutant_par_t0,
-                                                                                                       0, 2)
+                                                                                                        0, 2)
 print("Pente = ", f"{facteur_valeur} +- {facteur_incertitude}") # Afficher les valeurs
 
 # Convertir les valeurs de temps en valeurs de tension
@@ -46,7 +46,7 @@ valeurs_avec_bonnes_unites[:, 0] = -facteur_valeur * valeurs_cropped_debutant_pa
 # Mettre vos données avec les bonnes unités à la place du None
 valeurs_avec_bonnes_unites_determination_des_pics = valeurs_avec_bonnes_unites.copy()
 liste_des_indexes_des_pics =  determiner_indexes_maximums_scipy(valeurs_avec_bonnes_unites, 1,
-                                                                distance_minumum=100)
+                                                                distance_minumum=60)
 # Obtenir les données pour les indices incluant les pics
 valeurs_avec_bonnes_unites_peaks = valeurs_avec_bonnes_unites[liste_des_indexes_des_pics]
 
@@ -54,16 +54,18 @@ print("Estimation des pics:", valeurs_avec_bonnes_unites_determination_des_pics[
                                                                                 0])
 
 # Afficher les données du courant du pico en fonction de la tension entre G1 et le ground
-plt.figure()
+plt.figure(figsize=(16, 10), dpi=200)
 plt.plot(valeurs_avec_bonnes_unites_determination_des_pics[:, 0],
-         valeurs_avec_bonnes_unites_determination_des_pics[:, 1],
-         label="Courant du pico")
+                valeurs_avec_bonnes_unites_determination_des_pics[:, 1],
+                label="Courant du pico", c='k')
 plt.xlabel("Tension entre G1 et le ground [V]")
 plt.scatter(valeurs_avec_bonnes_unites_determination_des_pics[liste_des_indexes_des_pics, 0],
-            valeurs_avec_bonnes_unites_determination_des_pics[liste_des_indexes_des_pics, 1],
-            label="Estimation des pics")
+                valeurs_avec_bonnes_unites_determination_des_pics[liste_des_indexes_des_pics, 1],
+                label="Estimation des pics", c='red', zorder=10)
 plt.ylabel("Courant mesuré [nA]")
 plt.legend()
+
+#plt.savefig(os.path.join('figures', csv_file_names[num_exp] + "_AnalyseSimpleMultiple.png"), bbox_inches="tight")
 plt.show()
 
 
