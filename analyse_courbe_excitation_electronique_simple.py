@@ -122,11 +122,10 @@ plt.show()
 
 # -------------------------------------------------------------------------------------------------
 #     Faire une régression gaussienne sur chacun des pics et calculer le potentiel de contact
+#  Dans cette section, il est important de noter que des ajustements manuels des valeurs doivent
+#    être apportées. Lorsque le pic ne peut être ajusté, il faut le retirer en le mettant en 
+#                                          commentaire.
 # -------------------------------------------------------------------------------------------------
-# Paramètres qui ont été optimisés manuellement pour les ajustements gaussiens de chaque
-# expérience | APPORTER DES MODIFICATIONS POUR PAR RÉPÉTER LE CODE QUATRE FOIS!! + dictionnaire pour
-# les valeurs qui ont été optimisées manullement
-
 # Mettres les paramètres des fits gaussiens pour chaque pic [Amplitude, Moyenne, STD]
 peak1_idx_start, peak1_idx_end = liste_des_indexes_des_pics[0] - 50, liste_des_indexes_des_pics[0] + 50
 peak1 = gaussian_fit(valeurs_avec_bonnes_unites[peak1_idx_start:peak1_idx_end, 0],
@@ -151,6 +150,8 @@ peak4 = gaussian_fit(valeurs_avec_bonnes_unites[peak4_idx_start:peak4_idx_end, 0
                      valeurs_avec_bonnes_unites[peak4_idx_start:peak4_idx_end, 1],
                      valeurs_avec_bonnes_unites_peaks[3, 1],
                      valeurs_avec_bonnes_unites_peaks[3, 0], 1)
+
+peaks = [peak1, peak2, peak3, peak4]
 
 
 def rounding_peaks(peaks):
@@ -195,7 +196,7 @@ plt.scatter(valeurs_avec_bonnes_unites[liste_des_indexes_des_pics, 0],
 peaks_idx_start = [peak1_idx_start, peak2_idx_start, peak3_idx_start, peak4_idx_start]
 peaks_idx_end = [peak1_idx_end, peak2_idx_end, peak3_idx_end, peak4_idx_end]
 
-for i, peak in enumerate([peak1, peak2, peak3, peak4]):
+for i, peak in enumerate(peaks):
       rounded_values = rounding_peaks(peak)
       plt.plot(valeurs_avec_bonnes_unites[peaks_idx_start[i]:peaks_idx_end[i], 0], 
             gaus(valeurs_avec_bonnes_unites[peaks_idx_start[i]:peaks_idx_end[i], 0], 
