@@ -24,7 +24,7 @@ valeurs_en_array = lire_csv_a_3_colonnes(csv_file_path, 9)
 # -------------------------------------------------------------------------------------------------
 # Retrait des valeurs à l'extérieur 
 valeurs_cropped_debutant_par_t0 = crop_pour_conserver_que_la_partie_avec_rampe(valeurs_en_array,
-                                                                                2, 0.04, 0.1)
+                                                                                2, 0.01, 0.1)
 # Réétablir les données tronquées pour débuter à t_0=0
 valeurs_cropped_debutant_par_t0[:, 0] -= np.min(valeurs_cropped_debutant_par_t0[:, 0])
 
@@ -46,7 +46,8 @@ valeurs_avec_bonnes_unites[:, 0] = -facteur_valeur * valeurs_cropped_debutant_pa
 # Mettre vos données avec les bonnes unités à la place du None
 valeurs_avec_bonnes_unites_determination_des_pics = valeurs_avec_bonnes_unites.copy()
 liste_des_indexes_des_pics =  determiner_indexes_maximums_scipy(valeurs_avec_bonnes_unites, 1,
-                                                                distance_minumum=60)
+                                                                hauteur_minimum=0.01,
+                                                                distance_minumum=45)
 # Obtenir les données pour les indices incluant les pics
 valeurs_avec_bonnes_unites_peaks = valeurs_avec_bonnes_unites[liste_des_indexes_des_pics]
 
