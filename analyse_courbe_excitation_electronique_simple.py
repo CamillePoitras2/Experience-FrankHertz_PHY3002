@@ -211,6 +211,6 @@ plt.legend(fontsize=13)
 plt.tick_params(axis='both', which='both', direction='in')
 plt.minorticks_on()
 
-plt.savefig(os.path.join('figures', csv_file_names[num_exp] + "_AnalyseProfonde.png"), bbox_inches="tight")
+#plt.savefig(os.path.join('figures', csv_file_names[num_exp] + "_AnalyseProfonde.png"), bbox_inches="tight")
 
 plt.show()
