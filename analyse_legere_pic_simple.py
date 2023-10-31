@@ -101,8 +101,6 @@ liste_des_indexes_des_pics =  determiner_indexes_maximums_scipy(valeurs_avec_bon
 
 print("Estimation des pics:", valeurs_avec_bonnes_unites_determination_des_pics[liste_des_indexes_des_pics,
                                                                                 0])
-print("Moyenne des écarts:", np.mean(valeurs_avec_bonnes_unites_determination_des_pics[liste_des_indexes_des_pics,
-                                                                                       0]))
 
 # Afficher les données du courant du picoampèremètre en fonction de la tension d'accélération
 # avec l'identification des maximums détectés
