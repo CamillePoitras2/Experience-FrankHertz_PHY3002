@@ -176,38 +176,36 @@ print("Pic 4:",
       f"STD: {rounding_peaks(peak4)[2]}",
       f"Amplitude: {rounding_peaks(peak4)[0]}")
 
-
+# -------------------------------------------------------------------------------------------------
 # Afficher les courants en fonction de la tension avec les emplacements approximatifs des maximums
-# et ajustements gaussiens
-plt.figure(figsize=(16, 10))
+#                                     et ajustements gaussiens
+# -------------------------------------------------------------------------------------------------
+# Définir les couleurs des courbes des régressions gaussiennes
+colors_gauss = ['#E98C00', 'red', '#3E66C4', '#119DA4']
 
-plt.plot(valeurs_avec_bonnes_unites[:, 0],
-         valeurs_avec_bonnes_unites[:, 1],
-         label="Courant mesuré",
-         color="black", linewidth=3,
-         zorder=1)
+plt.figure(figsize=(16, 10), dpi=200)
+
+plt.plot(valeurs_avec_bonnes_unites[:, 0], valeurs_avec_bonnes_unites[:, 1], label="Courant mesuré",
+            color="black", linewidth=2, zorder=20)
 plt.scatter(valeurs_avec_bonnes_unites[liste_des_indexes_des_pics, 0],
             valeurs_avec_bonnes_unites[liste_des_indexes_des_pics, 1],
-            label="Estimation des pics",
-            color="red", marker='o',
-            zorder=6)
+            label="Estimation des positions des pics", color="k", marker='o', zorder=30)
 
 # Tracer les ajustements gaussiens pour chaque pic
 peaks_idx_start = [peak1_idx_start, peak2_idx_start, peak3_idx_start, peak4_idx_start]
 peaks_idx_end = [peak1_idx_end, peak2_idx_end, peak3_idx_end, peak4_idx_end]
 
 for i, peak in enumerate([peak1, peak2, peak3, peak4]):
-    rounded_values = rounding_peaks(peak)
-    plt.plot(valeurs_avec_bonnes_unites[peaks_idx_start[i]:peaks_idx_end[i], 0], 
-             gaus(valeurs_avec_bonnes_unites[peaks_idx_start[i]:peaks_idx_end[i], 0],
+      rounded_values = rounding_peaks(peak)
+      plt.plot(valeurs_avec_bonnes_unites[peaks_idx_start[i]:peaks_idx_end[i], 0], 
+            gaus(valeurs_avec_bonnes_unites[peaks_idx_start[i]:peaks_idx_end[i], 0], 
                   peak[0][0], peak[0][1], peak[0][2]),
-             label=(f"$y = ({rounded_values[0]})\;\exp\{{(x-({rounded_values[1]}))^2\;$"
-                    + f"$/\; 2\cdot({rounded_values[2]})^2\}}$"),
-             color='red', linewidth=2, alpha=0.9)
+            label=(f"Pic {i+1} : " + f"$y = ({rounded_values[0]})\;\exp\{{(x-({rounded_values[1]}))^2\; /\; 2\cdot({rounded_values[2]})^2\}}$"),
+            color=colors_gauss[i], linewidth=7, alpha=0.5)
 
 plt.xlabel("Tension d'accélération [V]")
 plt.ylabel("Courant du pico [nA]")
-plt.legend(fontsize=14)
+plt.legend(fontsize=13)
 plt.tick_params(axis='both', which='both', direction='in')
 plt.minorticks_on()
 
