@@ -58,10 +58,16 @@ plt.figure(figsize=(16, 10), dpi=200)
 plt.plot(valeurs_avec_bonnes_unites_determination_des_pics[:, 0],
                 valeurs_avec_bonnes_unites_determination_des_pics[:, 1],
                 label="Courant du pico", c='k')
-plt.xlabel("Tension entre G1 et le ground [V]")
-plt.scatter(valeurs_avec_bonnes_unites_determination_des_pics[liste_des_indexes_des_pics, 0],
-                valeurs_avec_bonnes_unites_determination_des_pics[liste_des_indexes_des_pics, 1],
+x_data = valeurs_avec_bonnes_unites_determination_des_pics[liste_des_indexes_des_pics, 0]
+y_data = valeurs_avec_bonnes_unites_determination_des_pics[liste_des_indexes_des_pics, 1]
+plt.scatter(x_data, y_data,
                 label="Estimation des pics", c='red', zorder=10)
+
+# Annoter les pics détectés pour y référer dans la légende
+#for i, (x, y) in enumerate(zip(x_data, y_data)):
+#        plt.annotate(f"{i+1}", (x, y), textcoords="offset points", xytext=(0, 10), ha='center')
+
+plt.xlabel("Tension entre G1 et le ground [V]")
 plt.ylabel("Courant mesuré [nA]")
 plt.legend()
 
