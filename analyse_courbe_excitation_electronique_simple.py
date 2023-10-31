@@ -151,7 +151,7 @@ peak4 = gaussian_fit(valeurs_avec_bonnes_unites[peak4_idx_start:peak4_idx_end, 0
                      valeurs_avec_bonnes_unites_peaks[3, 1],
                      valeurs_avec_bonnes_unites_peaks[3, 0], 1)
 
-peaks = [peak1, peak2, peak3, peak4]
+peaks = [peak1, peak2, peak3, peak4] # Retirer un pic dans le cas où une régression gaussienne ne fonctionne pas
 
 
 def rounding_peaks(peaks):
@@ -197,19 +197,20 @@ peaks_idx_start = [peak1_idx_start, peak2_idx_start, peak3_idx_start, peak4_idx_
 peaks_idx_end = [peak1_idx_end, peak2_idx_end, peak3_idx_end, peak4_idx_end]
 
 for i, peak in enumerate(peaks):
-      rounded_values = rounding_peaks(peak)
-      plt.plot(valeurs_avec_bonnes_unites[peaks_idx_start[i]:peaks_idx_end[i], 0], 
-            gaus(valeurs_avec_bonnes_unites[peaks_idx_start[i]:peaks_idx_end[i], 0], 
+    i += 1 # Ajouter cette ligne si retrait du premier pic (pas de régression possible)
+    rounded_values = rounding_peaks(peak)
+    plt.plot(valeurs_avec_bonnes_unites[peaks_idx_start[i]:peaks_idx_end[i], 0], 
+             gaus(valeurs_avec_bonnes_unites[peaks_idx_start[i]:peaks_idx_end[i], 0], 
                   peak[0][0], peak[0][1], peak[0][2]),
-            label=(f"Pic {i+1} : " + f"$y = ({rounded_values[0]})\;\exp\{{(x-({rounded_values[1]}))^2\; /\; 2\cdot({rounded_values[2]})^2\}}$"),
-            color=colors_gauss[i], linewidth=7, alpha=0.5)
+             label=(f"Pic {i+1} : " + f"$y = ({rounded_values[0]})\;\exp\{{(x-({rounded_values[1]}))^2\; /\; 2\cdot({rounded_values[2]})^2\}}$"),
+             color=colors_gauss[i], linewidth=7, alpha=0.5)
 
-plt.xlabel("Tension d'accélération [V]")
+plt.xlabel("Tension entre G1 et le ground [V]")
 plt.ylabel("Courant du pico [nA]")
 plt.legend(fontsize=13)
 plt.tick_params(axis='both', which='both', direction='in')
 plt.minorticks_on()
 
-plt.savefig(os.path.join('figures', csv_file_names[num_exp] + "_AnalyseSimple.png"), bbox_inches="tight")
+plt.savefig(os.path.join('figures', csv_file_names[num_exp] + "_AnalyseProfonde.png"), bbox_inches="tight")
 
 plt.show()
